@@ -282,10 +282,10 @@
             sepetListe.innerHTML = "";
             sepet.forEach(urun => {
                 const li = document.createElement("li");
-                li.textContent = ${urun.ad} - ${urun.fiyat.toFixed(2)} TL;
+                li.textContent = `${urun.ad} - ${urun.fiyat.toFixed(2)} TL`;
                 sepetListe.appendChild(li);
             });
-            document.getElementById("toplam-fiyat").textContent = ${toplamFiyat.toFixed(2)} TL;
+            document.getElementById("toplam-fiyat").textContent = `${toplamFiyat.toFixed(2)} TL`;
         }
 
         function odemeSayfasiAc() {
