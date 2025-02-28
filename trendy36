@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendyWear - Minimalist E-Ticaret</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 { font-size: 24px; }
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+        nav a:hover { color: #fff; }
+        .auth { margin-right: 20px; }
+        .auth button {
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 5px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .auth button:hover { background: #fff; color: #2d2d2d; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .modal-content button {
+            background: #78c1a5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal-content button:hover { background: #66a68c; }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .urun {
+            background: #fff;
+            border-radius: 10px;
+            width: 23%;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .urun:hover { transform: translateY(-5px); }
+        .urun img { max-width: 100%; border-radius: 5px; }
+        .urun h3 { font-size: 16px; margin: 10px 0; }
+        .urun p { color: #666; }
+        .urun button {
+            background: #78c1a5;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .urun button:hover { background: #66a68c; }
+        #sepet, #odeme {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        #sepet-liste { list-style: none; padding: 0; }
+        #sepet-liste li { padding: 10px; border-bottom: 1px solid #eee; }
+        #odeme-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        footer {
+            background: #2d2d2d;
+            color: #ddd;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TrendyWear</h1>
+        <div class="auth">
+            <button onclick="girisModalAc()">Giriş Yap</button>
+            <button onclick="kayitModalAc()">Kayıt Ol</button>
+        </div>
+        <nav>
+            <a href="#tisort">Tişört</a>
+            <a href="#pantalon">Pantolon</a>
+            <a href="#ceket">Ceket</a>
+            <a href="#sepet">Sepetim</a>
+        </nav>
+    </header>
+
+    <!-- Giriş Modal -->
+    <div id="giris-modal" class="modal">
+        <div class="modal-content">
+            <h2>Giriş Yap</h2>
+            <input type="email" id="giris-email" placeholder="E-posta">
+            <input type="password" id="giris-sifre" placeholder="Şifre">
+            <button onclick="girisYap()">Giriş Yap</button>
+            <p onclick="modalKapat('giris-modal')" style="margin-top: 10px; cursor: pointer;">Kapat</p>
+        </div>
+    </div>
+
+    <!-- Kayıt Modal -->
+    <div id="kayit-modal" class="modal">
+        <div class="modal-content">
+            <h2>Kayıt Ol</h2>
+            <input type="text" id="kayit-ad" placeholder="Ad Soyad">
+            <input type="email" id="kayit-email" placeholder="E-posta">
+            <input type="password" id="kayit-sifre" placeholder="Şifre">
+            <button onclick="kayitOl()">Kayıt Ol</button>
+            <p onclick="modalKapat('kayit-modal')" style="margin-top: 10px; cursor: pointer;">Kapat</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Tişört -->
+        <div class="urun" id="tisort">
+            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Tişört">
+            <h3>Beyaz Minimal Tişört</h3>
+            <p>149.90 TL</p>
+            <button onclick="sepeteEkle('Beyaz Minimal Tişört', 149.90)">Sepete Ekle</button>
+        </div>
+        <div class="urun">
+            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Tişört">
+            <h3>Siyah Grafik Tişört</h3>
+            <p>179.90 TL</p>
+            <button onclick="sepeteEkle('Siyah Grafik Tişört', 179.90)">Sepete Ekle</button>
+        </div>
+
+        <!-- Pantolon -->
+        <div class="urun" id="pantalon">
+            <img src="https://images.unsplash.com/photo-1604176354204-9268737828e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Pantolon">
+            <h3>Mavi Slim Fit Kot</h3>
+            <p>299.90 TL</p>
+            <button onclick="sepeteEkle('Mavi Slim Fit Kot', 299.90)">Sepete Ekle</button>
+        </div>
+        <div class="urun">
+            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97a3ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Pantolon">
+            <h3>Siyah Chino Pantolon</h3>
+            <p>349.90 TL</p>
+            <button onclick="sepeteEkle('Siyah Chino Pantolon', 349.90)">Sepete Ekle</button>
+        </div>
+
+        <!-- Ceket -->
+        <div class="urun" id="ceket">
+            <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Ceket">
+            <h3>Kahve Deri Ceket</h3>
+            <p>599.90 TL</p>
+            <button onclick="sepeteEkle('Kahve Deri Ceket', 599.90)">Sepete Ekle</button>
+        </div>
+        <div class="urun">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Ceket">
+            <h3>Gri Kaşe Ceket</h3>
+            <p>499.90 TL</p>
+            <button onclick="sepeteEkle('Gri Kaşe Ceket', 499.90)">Sepete Ekle</button>
+        </div>
+    </div>
+
+    <!-- Sepet -->
+    <div id="sepet">
+        <h2>Sepetim</h2>
+        <ul id="sepet-liste"></ul>
+        <p>Toplam: <span id="toplam-fiyat">0.00 TL</span></p>
+        <button onclick="odemeSayfasiAc()" style="background: #78c1a5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Ödeme Yap</button>
+    </div>
+
+    <!-- Ödeme Sayfası -->
+    <div id="odeme" style="display: none;">
+        <h2>Ödeme Bilgileri</h2>
+        <form id="odeme-form">
+            <input type="text" placeholder="Ad Soyad" required>
+            <input type="email" placeholder="E-posta" required>
+            <input type="text" placeholder="Kart Numarası (16 hane)" maxlength="16" required>
+            <input type="text" placeholder="Son Kullanma (AA/YY)" maxlength="5" required>
+            <input type="text" placeholder="CVC (3 hane)" maxlength="3" required>
+            <button type="button" onclick="odemeYap()" style="background: #78c1a5; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Ödemeyi Tamamla</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2025 TrendyWear. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script>
+        let sepet = [];
+        let toplamFiyat = 0;
+        let girisYapildi = false;
+
+        function girisModalAc() { document.getElementById("giris-modal").style.display = "flex"; }
+        function kayitModalAc() { document.getElementById("kayit-modal").style.display = "flex"; }
+        function modalKapat(id) { document.getElementById(id).style.display = "none"; }
+
+        function girisYap() {
+            const email = document.getElementById("giris-email").value;
+            const sifre = document.getElementById("giris-sifre").value;
+            if (email && sifre) {
+                girisYapildi = true;
+                alert("Giriş başarılı!");
+                modalKapat("giris-modal");
+            } else {
+                alert("Lütfen tüm alanları doldurun!");
+            }
+        }
+
+        function kayitOl() {
+            const ad = document.getElementById("kayit-ad").value;
+            const email = document.getElementById("kayit-email").value;
+            const sifre = document.getElementById("kayit-sifre").value;
+            if (ad && email && sifre) {
+                alert("Kayıt başarılı! Şimdi giriş yapabilirsiniz.");
+                modalKapat("kayit-modal");
+            } else {
+                alert("Lütfen tüm alanları doldurun!");
+            }
+        }
+
+        function sepeteEkle(urunAdi, fiyat) {
+            sepet.push({ ad: urunAdi, fiyat: fiyat });
+            toplamFiyat += fiyat;
+            sepetiGuncelle();
+        }
+
+        function sepetiGuncelle() {
+            const sepetListe = document.getElementById("sepet-liste");
+            sepetListe.innerHTML = "";
+            sepet.forEach(urun => {
+                const li = document.createElement("li");
+                li.textContent = ${urun.ad} - ${urun.fiyat.toFixed(2)} TL;
+                sepetListe.appendChild(li);
+            });
+            document.getElementById("toplam-fiyat").textContent = ${toplamFiyat.toFixed(2)} TL;
+        }
+
+        function odemeSayfasiAc() {
+            if (!girisYapildi) {
+                alert("Lütfen önce giriş yapın!");
+                girisModalAc();
+                return;
+            }
+            if (sepet.length === 0) {
+                alert("Sepetiniz boş!");
+                return;
+            }
+            document.getElementById("sepet").style.display = "none";
+            document.getElementById("odeme").style.display = "block";
+        }
+
+        function odemeYap() {
+            const inputs = document.querySelectorAll("#odeme-form input");
+            let dolu = true;
+            inputs.forEach(input => { if (!input.value) dolu = false; });
+            if (dolu) {
+                alert("Ödeme başarılı! Siparişiniz hazırlanıyor.");
+                sepet = [];
+                toplamFiyat = 0;
+                sepetiGuncelle();
+                document.getElementById("odeme").style.display = "none";
+                document.getElementById("sepet").style.display = "block";
+            } else {
+                alert("Lütfen tüm alanları doldurun!");
+            }
+        }
+    </script>
+</body>
+</html>
